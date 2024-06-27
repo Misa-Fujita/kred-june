@@ -27,11 +27,14 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('admin', function($user){
             return $user->role_id === USER::ADMIN_ROLE_ID; //True
         });
+
+        if (config('app.env') === 'production') {
+    
+            \URL::forceScheme('https');
+        } 
     
     }
 
-    if (config('app.env') === 'production') {
-        \URL::forceScheme('http');
-    }
+    
 
 }
